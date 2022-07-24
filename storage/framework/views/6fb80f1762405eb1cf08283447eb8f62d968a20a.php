@@ -21,7 +21,7 @@
                 <?php $__currentLoopData = $messageClasses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $messageClasse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>  
                   <form action="/classe/deleteMessage/<?php echo e($messageClasse->classe_id); ?>" method="POST">  
                     <input type="hidden" name="classeId" id="classeId" value="<?php echo e($messageClasse->classe_id); ?>">          
-                    <p><b><?php echo e($messageClasse->name); ?> - <?php echo e(date('d/m/y H:i:s',  strtotime($messageClasse->data_envio))); ?> 
+                    <p><b><?php echo e($messageClasse->name); ?> - <?php echo e(date('d-m-y H:i:s', strtotime($messageClasse->data_envio) )); ?> 
                   
                     <?php echo csrf_field(); ?> 
                     <?php echo method_field('DELETE'); ?>

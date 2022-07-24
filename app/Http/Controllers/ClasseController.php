@@ -76,7 +76,8 @@ class ClasseController extends Controller
         $messageClasses->message = $request->message;
         $messageClasses->classe_id = $classeId;
         $messageClasses->user_id = $user;
-        
+        date_default_timezone_set('America/Sao_Paulo');
+        $messageClasses->created_at = date('Y/m/d H:i', time());
 
         $messageClasses->save();
          
