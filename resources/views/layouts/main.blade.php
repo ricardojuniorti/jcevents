@@ -135,8 +135,8 @@ use Illuminate\Support\Facades\DB;
               @if(auth()->user()->user_profile_id != 1)
                 <li><a href="/event/createEvent">Novo Evento</a></li>
                 <li><a href="/dashboard">Meus Eventos</a></li>
+                @endif
                 <li><a href="/event/myEvent">Eventos que participo</a></li>
-              @endif
               </ul>
             </li>
             <br> 

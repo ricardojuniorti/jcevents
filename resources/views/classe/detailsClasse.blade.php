@@ -23,7 +23,7 @@
                 @foreach($messageClasses as $messageClasse)  
                   <form action="/classe/deleteMessage/{{$messageClasse->classe_id}}" method="POST">  
                     <input type="hidden" name="classeId" id="classeId" value="{{$messageClasse->classe_id}}">          
-                    <p><b>{{$messageClasse->name}} - {{ date('d-m-y H:i:s', strtotime($messageClasse->data_envio) )   }} 
+                    <p><b>{{$messageClasse->name}} - {{ date('d-m-y H:i', strtotime($messageClasse->data_envio) )   }} 
                   
                     @csrf 
                     @method('DELETE')
