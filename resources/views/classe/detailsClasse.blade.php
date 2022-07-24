@@ -46,12 +46,12 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                <p>Tem certeza excluir o curso ?</p>
+                                <p>Tem certeza excluir esta mensagem ?</p>
                                 <input type="hidden" id="messageId" name="messageId" value="">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                                    <button type="submit"  class="btn btn-primary">Excluir Curso</button>
+                                    <button type="submit"  class="btn btn-primary">Excluir mensagem</button>
                                 </div>
                             </div>
                         </div>
