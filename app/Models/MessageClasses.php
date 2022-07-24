@@ -26,7 +26,7 @@ class MessageClasses extends Model
 
             $registro = DB::table('message_classes')
                     ->where('message_classes.classe_id', $id)
-                    ->select('users.id as user_id','users.name as name','users.created_at as data_envio','message_classes.message as message')
+                    ->select('message_classes.id as id','message_classes.classe_id as classe_id','users.id as user_id','users.name as name','users.created_at as data_envio','message_classes.message as message')
                     ->orderByRaw('users.name ASC')
                     ->Join('users', 'message_classes.user_id', '=', 'users.id')
                     ->get();

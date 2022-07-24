@@ -18,11 +18,45 @@
             <?php if($messageClasses <> null): ?>
               <div class="col-md-12" id="message-container">
                 <h4><b>Comentários</b></h4>
-                <?php $__currentLoopData = $messageClasses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $messageClasse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                
-                  <p><b><?php echo e($messageClasse->name); ?> - <?php echo e(date('d/m/y H:i:s',  strtotime($messageClasse->data_envio))); ?></b></p>
+                <?php $__currentLoopData = $messageClasses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $messageClasse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>  
+                  <form action="/classe/deleteMessage/<?php echo e($messageClasse->classe_id); ?>" method="POST">  
+                    <input type="hidden" name="classeId" id="classeId" value="<?php echo e($messageClasse->classe_id); ?>">          
+                    <p><b><?php echo e($messageClasse->name); ?> - <?php echo e(date('d/m/y H:i:s',  strtotime($messageClasse->data_envio))); ?> 
+                  
+                    <?php echo csrf_field(); ?> 
+                    <?php echo method_field('DELETE'); ?>
+                    <?php if(auth()->user()->id === $messageClasse->user_id): ?>
+                      <a href="#" class=""  data-toggle="modal"  data-target="#exampleModalCenter" data-id="<?php echo e($messageClasse->id); ?>">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                      </svg>
+                      </a>
+                    <?php endif; ?>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Confirmação</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <p>Tem certeza excluir o curso ?</p>
+                                <input type="hidden" id="messageId" name="messageId" value="">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+                                    <button type="submit"  class="btn btn-primary">Excluir Curso</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </form></b></p>
                   <p><?php echo e($messageClasse->message); ?></p>
-                  <hr>
+                  
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </div>
             <?php else: ?>
@@ -51,6 +85,19 @@
   </div>
 
 </div>
+
+<script>
+
+$('#exampleModalCenter').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var recipientId = button.data('id');
+
+    var modal = $(this);
+    modal.find('#messageId').val(recipientId);
+})
+
+
+</script>
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laragon\www\TCC\jcevents\resources\views/classe/detailsClasse.blade.php ENDPATH**/ ?>

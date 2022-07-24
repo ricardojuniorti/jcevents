@@ -83,6 +83,7 @@ Route::put('/classe/updateClasse/{id}', [ClasseController::class, 'updateClasse'
 Route::delete('/classe/{id}', [ClasseController::class, 'deleteClasse'])->middleware('auth');
 Route::get('/classe/detailsClasse/{id}', [ClasseController::class, 'detailsClasse'])->middleware('auth');
 Route::post('/classe/createMessage/{id}', [ClasseController::class, 'createMessage'])->middleware('auth');
+Route::delete('/classe/deleteMessage/{id}', [ClasseController::class, 'deleteMessage'])->middleware('auth');
 
 
 //Gerir Itens de Evento

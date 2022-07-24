@@ -56,6 +56,7 @@ class ClasseController extends Controller
 
         $messageClasses = MessageClasses::buscar_mensagens($id);
 
+        //dd($messageClasses);
         return view('classe.detailsClasse', ['classe' => $classe,'classes' => $classes,'linkVideoFormatado' => $linkVideoFormatado, 'messageClasses' => $messageClasses]);        
     }
 
@@ -80,6 +81,17 @@ class ClasseController extends Controller
         $messageClasses->save();
          
         return redirect('/classe/detailsClasse/' . $classeId);
+
+    }
+
+    public function deleteMessage ($idClasse, request $request){
+              
+        $idMessage = $request->messageId;
+
+
+        MessageClasses::findOrFail($idMessage)->delete();
+
+        return redirect('/classe/detailsClasse/' . $idClasse);
 
     }
 }
