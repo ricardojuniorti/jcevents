@@ -1,0 +1,1 @@
+<img src="<?php echo e(asset('/img/jcevents.png')); ?>" alt=""><?php /**PATH E:\laragon\www\TCC\jcevents\vendor\laravel\jetstream\src/../resources/views/components/authentication-card-logo.blade.php ENDPATH**/ ?>

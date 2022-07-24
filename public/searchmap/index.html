@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="./index.js"></script>
+  </head>
+  <body>
+	<div class="mapa" id="mapa">
+		<div class="pac-card" id="pac-card">
+		  <div>
+			<div id="title">Informe a localização</div>
+			<div id="type-selector" class="pac-controls">
+			  <input
+				type="radio"
+				name="type"
+				id="changetype-all"
+				checked="checked"
+			  />
+			  <label for="changetype-all">Todos</label>
+
+			  <input type="radio" name="type" id="changetype-establishment" />
+			  <label for="changetype-establishment">estabelecimentos</label>
+
+			  <input type="radio" name="type" id="changetype-address"  />
+			  <label for="changetype-address">endereço</label>
+
+			  <input type="radio" name="type" id="changetype-geocode" />
+			  <label for="changetype-geocode">geocode</label>
+
+			  <input type="radio" name="type" id="changetype-cities" />
+			  <label for="changetype-cities">(cidades)</label>
+
+			  <input type="radio" name="type" id="changetype-regions" />
+			  <label for="changetype-regions">(regiões)</label>
+			  
+			  <input type="hidden" name="latitude" id="latitude" />
+			  
+			  <input type="hidden" name="longitude" id="longitude" />
+			  
+			  
+			</div>
+			<br />
+			<div id="strict-bounds-selector" class="pac-controls">
+			  <input type="checkbox" id="use-location-bias" value="" checked />
+			  <label for="use-location-bias">mostrar no mapa</label>
+
+			  <input type="checkbox" id="use-strict-bounds" value="" />
+			  <label for="use-strict-bounds">limites de região</label>
+			</div>
+		  </div>
+		  <div id="pac-container">
+			<input id="pac-input" type="text" placeholder="Marque a opção endereço para melhor localização" />
+		  </div>
+		</div>
+	</div>
+    <div id="map"></div>
+    <div id="infowindow-content">
+      <span id="place-name" class="title"></span><br />
+      <span id="place-address"></span>
+    </div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback.    keys: minha: AIzaSyBUPbxiRC_fIQQYAcdXIla5bJeoOhpblxc |  AIzaSyD1IdvGj5hzxW6SWgUsUcdnf7jSQpQILkc   |  alternativa:AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg --> 
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1IdvGj5hzxW6SWgUsUcdnf7jSQpQILkc&callback=initMap&libraries=places&v=weekly"
+      async
+    ></script>
+  </body>
+</html>

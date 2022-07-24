@@ -1,0 +1,530 @@
+/* Configuracao de layout para monitores acima de 600px */
+
+/* Reset CSS */
+*, *:after, *:before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.5;					
+}
+
+/* esconde o menu mobile */
+#nav{
+  display:none;
+}
+
+#logo img {
+  background: #757575;
+  width: 60px;
+  height: 60px;
+}
+
+#logo > a:hover {
+  background: #757575;
+}
+
+/* Fundo do menu */
+.menu{
+  top: 15px;		  
+  background: #757575;						
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  z-index:1000;
+}
+
+#autenticado{
+  display: block;
+  float: right;
+  margin-right: 60px;
+  margin-top: -10px;
+}
+
+
+/* Remove as bolinhas do lado das listas */
+.menu .menu-list, .menu .sub-menu{
+  list-style: none;
+}
+/* Configura todos os links do nosso menu */
+.menu a{
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  font-size: 19px;
+  font-weight: bolder;
+  
+}
+
+/* Faz os <li>s ficarem na horizontal */
+.menu > .menu-list > li{
+  float: left;
+  position: relative;
+}
+/* Configura os links do menu principal */
+.menu > .menu-list > li > a {
+  padding: 20px;
+  margin: 0 5px;
+  background: #757575;
+}
+/* Configura o fundo do menu principal quando com mouse hover */
+.menu > .menu-list > li:hover a {
+  background: #0074A3;
+  
+}
+/*sublinhar ao passar o mouse sobre o menu*/
+
+.sublinhado > a:hover {
+  text-decoration: underline;
+}
+	
+/* Mostra o submenu no evento de mouse hover */
+.menu > .menu-list > li:hover > .sub-menu {
+  display: block;
+}
+/* Configura o estilo do submenu */
+.menu > .menu-list > li > .sub-menu {
+  position: absolute;
+  top: 50px;
+  left: 5px;
+  min-width: 200px;
+  z-index: 1000;
+  display: none;
+}
+
+/* Configura os links do submenu */
+.menu > .menu-list > li > .sub-menu > li > a {
+  padding: 10px 20px;
+}
+/* Clearfix para o menu */
+.menu:after {
+  content: '.';
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+/* configura a cor do asterisco de campo obrigatorio */
+.font-red {
+  color:rgba(247, 12, 12, 0.932);
+}
+
+
+#menu {
+  justify-content: end;
+  display: flex;
+  list-style: none;
+  gap: 0.5rem;
+}
+
+#menu a {
+  color: rgb(235, 229, 229);
+  display: block;
+  padding: 1.0rem;
+  font-size: 22px;
+}
+
+
+body {
+  
+  min-height: 100vh;
+  padding-bottom: 100px;
+  position: relative;
+}
+
+header {
+  background-color: #757575;
+  border-bottom: 0px solid rgb(168, 167, 167);
+}
+
+
+.btn-primary {
+  background-color: #F2A340;
+  border: 2px solid #C28008;
+}
+
+.btn-primary:hover {
+  background-color: #C28008;
+  border-color: #C28008;
+}
+
+.msg {
+  background-color: #D4EDDA;
+  color: #155724;
+  border: 1px solid #C3E6CB;
+  width: 100%;
+  margin-bottom: 0;
+  margin-top: -30px;
+  text-align: center;
+  padding: 10px;
+}
+
+#info-container .already-joined-msg {
+  margin: 15px 0;
+  background-color: #CCE5FF;
+  border: 1px solid #B8DAFF;
+  padding: 10px;
+  width: 275px;
+}
+
+
+/* Search Container */
+#search-container {
+  background-size: cover;
+  background-position: center;
+  padding: 40px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+#search-container h1 {
+  color: #F2A340;
+  margin-bottom: 30px;
+  font-weight: 900;
+}
+
+#search-container form {
+  width: 50%;
+  margin: 0 auto;
+}
+
+/* Events list */
+#events-container {
+  padding: 50px;
+}
+
+#events-container h2 {
+  margin-bottom: 10px;
+}
+
+#events-container .subtitle {
+  color: #757575;
+  margin-bottom: 30px;
+}
+
+#cards-container {
+  display: flex;
+  
+}
+
+#events-container .card {
+  flex: 1 1 70%;
+  max-width: 240px;
+  border-radius: 15px;
+  padding: 20px;
+  margin: .5%;
+  
+}
+
+#events-container img {
+  max-width: 200px;
+  max-height: 200px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card .card-date {
+  font-size: 12px;
+  color: rgb(151, 149, 149);
+}
+
+.card .card-title {
+  color: #212121;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.card-participants {
+  font-size: 14px;
+  color: #757575;
+}
+
+/* Event create page  */
+#event-create-container {
+  padding: 40px;
+  margin-top: 92px;
+}
+
+.export {
+text-align: center;
+}
+
+
+@media (min-width: 600px) {
+  /* Event create page  */
+  #event-create-container {   
+    
+    position: absolute;
+    
+  }
+}
+
+
+#event-create-container label {
+  font-weight: bold;
+}
+
+#event-create-container input,
+#event-create-container select,
+#event-create-container textarea {
+  font-size: 12px;
+}
+
+/* Event page */
+#image-container,
+#info-container {
+  margin-top: 100px;
+}
+
+#image-container img {
+  border-radius: 10px;
+}
+
+#info-container h1 {
+  font-size: 36px;
+  font-weight: 900;
+}
+
+#info-container p {
+  margin: 0;
+  font-size: 14px;
+  display: flex;
+}
+
+#info-container h3,
+#description-container h3 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#info-container ion-icon {
+  font-size: 20px;
+  color: #F2A340;
+  margin-right: 5px;
+}
+
+#info-container #event-submit {
+  margin: 20px 0;
+}
+
+#items-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+#items-list li {
+  display: flex;
+}
+
+#description-container {
+  margin-top: 30px;
+}
+
+#message-container {
+  background-color: #ebe6e6;
+  margin-top: 30px;
+}
+
+/* Dashboard */
+.dashboard-title-container {
+  margin-bottom: 30px;
+  margin-top: 105px;
+}
+
+.dashboard-events-container th {
+  width: 25%;
+}
+
+.dashboard-events-container form {
+  display: inline-block;
+}
+
+/* Edit page */
+
+.img-preview {
+  width: 250px;
+  margin-top: 20px;
+}
+
+/* footer */
+footer {
+  text-align: center;
+  background-color: #757575;
+  color: #FFF;
+  padding: 7px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  margin-bottom: 0;
+}
+
+
+#btn-mobile {
+  display: none;
+}
+
+.paginacao {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+iframe {
+  width: 640px;
+  height: 480px;
+}
+
+#alerta{
+  display: none;
+}
+
+.itemEvent{
+  height: 30px;
+}
+
+@media (min-width: 600px) {
+  #piechart_3d{
+    width: 900px;
+    height: 500px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+/* Configuracao de layout para dispositivos moveis */
+
+@media (max-width: 900px) {
+
+  .menu {
+    display: none;
+  }
+
+  #nav{
+    width: 100%;
+    display:flex;
+    height: 55px;
+    
+  }
+  
+  #menu {
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 75px;
+    right: 0px;
+    background: #e7e7e7;
+    transition: 0.6s;
+    z-index: 1000;
+    height: 0px;
+    visibility: hidden;
+    overflow-y: hidden;
+  }
+  #nav.active #menu {
+    height: calc(100vh - 40px); /* controla o tamanho da barra ao expandir o menu mobile*/
+    visibility: visible;
+    overflow-y: auto;
+    margin-top: -18px;
+    
+  }
+  #menu a {
+    padding: 0.3rem 0;
+    margin: 0 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color:#212121;
+    font-size: 16px;
+  }
+  #btn-mobile {
+    display: flex;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    gap: 0.5rem;
+  }
+
+  #nav img {
+    width: 0px;
+    margin-top: 10px;
+  }
+  
+  #hamburger {
+    border-top: 2px solid;
+    width: 20px;
+    margin-top: 10px;
+    color: #000;
+  }
+  #hamburger::after,
+  #hamburger::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #000;
+    margin-top: 5px;
+    transition: 0.3s;
+    position: relative;
+  }
+
+  .container-paginator{
+    width: 50%;
+  }
+
+  #search-container {
+    margin-top: -5px;
+    width: 100%;
+  }
+
+  #nav.active #hamburger {
+    border-top-color: transparent;
+  }
+  #nav.active #hamburger::before {
+    background: #000;
+    transform: rotate(135deg);
+  }
+  #nav.active #hamburger::after {
+    transform: rotate(-135deg);
+    top: -7px;
+  }
+
+  .paginacao {
+    display: none;
+  }
+
+  iframe {
+    width: 100%;
+    
+  }
+
+  #alerta{
+    display: none;
+  }
+
+  #piechart_3d{
+    width: 400px;
+    height: 280px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #email{ /* ocultar coluna na tabela de gerenciar usuarios em modo mobile */
+    display:none;
+  }
+
+  /* Events list */
+  #events-container {
+    margin: 0 auto;
+    width: 80%; /* Valor da Largura */
+  }
+
+}
