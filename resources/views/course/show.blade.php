@@ -74,8 +74,8 @@
         </table>
         @else
         <?php
-        if(auth()->user()->phone != null){ ?>
-        <p>Você ainda não tem eventos, <a href="/course/createCourse">criar evento</a></p>
+        if(auth()->user()->id != 1){ ?>
+        <p>Você ainda não cadastrou nenhum curso!  <a href="/course/createCourse">Criar curso</a></p>
         <?php
         }
         else { ?>
