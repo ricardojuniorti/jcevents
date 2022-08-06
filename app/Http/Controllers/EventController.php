@@ -20,16 +20,17 @@ class EventController extends Controller
 
         $search = request('search');
 
-        if($search) {
+        if($search != null) {
 
             $events = Event::buscar_eventos($search);
+            $courses = Course::buscar_cursos($search);
     
         } else {
 
             $events = Event::Paginate(8); // carrega todos os eventos
             $courses = Course::Paginate(8); // carrega todos os cursos
                       
-        } 
+        }
             
         return view('welcome',['events' => $events, 'search' => $search, 'courses' => $courses]);
 
