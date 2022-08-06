@@ -22,8 +22,8 @@ class EventController extends Controller
 
         if($search != null) {
 
-            $events = Event::buscar_eventos($search);
-            $courses = Course::buscar_cursos($search);
+            $events = Event::buscar_eventos($search); // busca os eventos atraves do texto pesquisado
+            $courses = Course::buscar_cursos($search); // busca os cursos atraves do texto pesquisado
     
         } else {
 
