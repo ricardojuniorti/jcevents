@@ -49,15 +49,17 @@
     <?php endif; ?>
     <div id="cards-container" class="row">
         <?php $__currentLoopData = $courses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="card col-md-3">
-            <img src="/img/events/<?php echo e($course->image); ?>" alt="<?php echo e($course->title); ?>">
-            <div class="card-body">
-                <p class="card-date">Carga horária: <?php echo e($course->duration); ?></p>
-                <h5 class="card-title"><?php echo e($course->title); ?></h5>
-                <p class="card-participants"><?php echo e(count($course->users)); ?> Participantes</p>
-                <a href="/course/<?php echo e($course->id); ?>" class="btn btn-primary">Saiba mais</a>
-            </div>
-        </div>
+          <?php if($course->active == true): ?>
+          <div class="card col-md-3">
+              <img src="/img/events/<?php echo e($course->image); ?>" alt="<?php echo e($course->title); ?>">
+              <div class="card-body">
+                  <p class="card-date">Carga horária: <?php echo e($course->duration); ?></p>
+                  <h5 class="card-title"><?php echo e($course->title); ?></h5>
+                  <p class="card-participants"><?php echo e(count($course->users)); ?> Participantes</p>
+                  <a href="/course/<?php echo e($course->id); ?>" class="btn btn-primary">Saiba mais</a>
+              </div>
+          </div>
+          <?php endif; ?>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         <?php if(count($courses) == 0 && $search): ?>
             <p>Não foi possível encontrar nenhum curso <?php echo e($search); ?>! <a href="/courses">Ver todos</a></p>

@@ -51,15 +51,17 @@
     @endif
     <div id="cards-container" class="row">
         @foreach($courses as $course)
-        <div class="card col-md-3">
-            <img src="/img/events/{{ $course->image }}" alt="{{ $course->title }}">
-            <div class="card-body">
-                <p class="card-date">Carga horária: {{ $course->duration }}</p>
-                <h5 class="card-title">{{ $course->title }}</h5>
-                <p class="card-participants">{{ count($course->users) }} Participantes</p>
-                <a href="/course/{{ $course->id }}" class="btn btn-primary">Saiba mais</a>
+          @if($course->active == true)
+            <div class="card col-md-3">
+                <img src="/img/events/{{ $course->image }}" alt="{{ $course->title }}">
+                <div class="card-body">
+                    <p class="card-date">Carga horária: {{ $course->duration }}</p>
+                    <h5 class="card-title">{{ $course->title }}</h5>
+                    <p class="card-participants">{{ count($course->users) }} Participantes</p>
+                    <a href="/course/{{ $course->id }}" class="btn btn-primary">Saiba mais</a>
+                </div>
             </div>
-        </div>
+          @endif
         @endforeach
         @if(count($courses) == 0 && $search)
             <p>Não foi possível encontrar nenhum curso {{ $search }}! <a href="/courses">Ver todos</a></p>
