@@ -27,8 +27,8 @@ class EventController extends Controller
     
         } else {
 
-            $events = Event::Paginate(8); // carrega todos os eventos
-            $courses = Course::Paginate(8); // carrega todos os cursos
+            $events = Event::Paginate(10); // carrega todos os eventos
+            $courses = Course::Paginate(10); // carrega todos os cursos
                       
         }
             
