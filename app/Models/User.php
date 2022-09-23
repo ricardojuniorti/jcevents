@@ -66,13 +66,13 @@ class User extends Authenticatable
 
     public static function buscar_dados() {
 
-            $registro = DB::table('users')
-                    ->select('users.id as id','users.name as name','users.email as email','users.phone as phone','users.created_at as created_at','users.updated_at as updated_at','user_profile.description as description')
-                    ->orderByRaw('users.name ASC')
-                    ->Join('user_profile', 'users.user_profile_id', '=', 'user_profile.id')
-                    ->get();
-        
-            return $registro;
+        $registro = DB::table('users')
+                ->select('users.id as id','users.name as name','users.email as email','users.phone as phone','users.created_at as created_at','users.updated_at as updated_at','user_profile.description as description')
+                ->orderByRaw('users.name ASC')
+                ->Join('user_profile', 'users.user_profile_id', '=', 'user_profile.id')
+                ->get();
+    
+        return $registro;
 
     }
 

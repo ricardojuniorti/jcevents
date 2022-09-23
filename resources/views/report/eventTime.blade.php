@@ -5,6 +5,9 @@
 @section('content')
 
 <script type="text/javascript">
+
+var data= JSON.parse('<?= $data ?>');
+
 // ano atual
 let currentTime = new Date();
 let anoAtual = currentTime.getFullYear();
@@ -16,12 +19,15 @@ let mesAtual = month[d.getMonth()];
 let mesanterior = month[d.getMonth()-1];
 let mesanterior2 = month[d.getMonth()-2];
  
+
+
 google.charts.load("current", {packages:["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
+
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Eventos ativos', 'Por periodo'],
-    ['Eventos presenciais',     38],
+    ['Eventos presenciais',     7],
     ['Teatros',      20],
     ['Cursos Online',  40],
     ['Shows', 2]
@@ -64,12 +70,17 @@ chart.draw(data, options);
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart2);
 
+//quantidade total de cadastros 
+const cadastroMesAtual =  parseInt(data.dadosUsuarios[0])
+const cadastroMesPassado =  parseInt(data.dadosUsuarios[1])
+const cadastroMesRetrasado =  parseInt(data.dadosUsuarios[2])
+
 function drawChart2() {
   var data = google.visualization.arrayToDataTable([
     ['Meses', 'Novos Cadastros'],
-    [mesanterior2,  1],
-    [mesanterior,  11],
-    [mesAtual,  6]
+    [mesanterior2,  cadastroMesRetrasado],
+    [mesanterior,  cadastroMesPassado],
+    [mesAtual,  cadastroMesAtual]
   ]);
 
   var options = {
