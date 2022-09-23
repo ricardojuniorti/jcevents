@@ -10,6 +10,7 @@ use App\Models\Course;
 use App\Models\User;
 use App\Models\Items;
 use App\Models\EventsItems;
+use App\Models\Visits;
 use App\Models\EventCategory;
 
 
@@ -18,6 +19,12 @@ class EventController extends Controller
     
     public function index() {
 
+        //guarda visitantes
+        $visit = new Visits;     
+        $visit->ip = $_SERVER['REMOTE_ADDR'];
+        $visit->save();
+        
+        
         $search = request('search');
 
         if($search != null) {
@@ -151,7 +158,6 @@ class EventController extends Controller
     public function myEvent() {
 
         $user = auth()->user();
-
 
         $eventsAsParticipant = $user->eventsAsParticipant;
 

@@ -6,11 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EventCategory extends Model
+class Visits extends Model
 {
-    use HasFactory;
-
-    protected $table = 'event_category';
+    protected $table = 'visits';
     /**
      * The attributes that are mass assignable.
      *
@@ -18,15 +16,10 @@ class EventCategory extends Model
      */
     protected $fillable = [
         'id',
-        'description',
-        'active',
+        'ip',
         'created_at',
-        'update_at',
+        'updated_at',
     ];
+    use HasFactory;
 
-    public function event() {
-
-        return $this->hasMany(Event::class);
-
-    }
 }

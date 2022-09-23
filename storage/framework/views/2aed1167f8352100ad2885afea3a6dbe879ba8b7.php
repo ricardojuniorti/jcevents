@@ -18,23 +18,28 @@ const d = new Date();
 let mesAtual = month[d.getMonth()];
 let mesanterior = month[d.getMonth()-1];
 let mesanterior2 = month[d.getMonth()-2];
+
+//retorno dos dados para o relatorio
+const totalEvento =  parseInt(data.dadosEventos[0])
+const totalTeatro =  parseInt(data.dadosEventos[1])
+const totalShow =  parseInt(data.dadosEventos[2])
+const totalCurso =  parseInt(data.dadosEventos[3])
+
  
-
-
 google.charts.load("current", {packages:["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Eventos ativos', 'Por periodo'],
-    ['Eventos presenciais',     7],
-    ['Teatros',      20],
-    ['Cursos Online',  40],
-    ['Shows', 2]
+    ['Eventos',     totalEvento],
+    ['Teatros',      totalTeatro],
+    ['Shows', totalShow],
+    ['Cursos',  totalCurso],
   ]);
 
   var options = {
-    title: 'Total de Eventos abertos por categoria no ano de ' + anoAtual,
+    title: 'Total de Eventos abertos por categoria',
     is3D: true,
   };
 

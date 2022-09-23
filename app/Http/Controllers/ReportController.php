@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Event;
+use App\Models\EventCategory;
+use App\Models\Course;
 use App\Models\User;
-use App\Models\Items;
-use App\Models\EventsItems;
-
 
 class ReportController extends Controller
 {
@@ -18,6 +17,7 @@ class ReportController extends Controller
 
         $data = [
             'dadosUsuarios' => $this->dadosUsuarios(),
+            'dadosEventos' => $this->dadosEventos(),
         ];
         //dd($data);
         return view('report.eventTime', ['data' => json_encode($data)]);
@@ -43,5 +43,34 @@ class ReportController extends Controller
         ];
 
         return $dadosUsuarios;
+    }
+
+    /**
+     * dadosEventos
+     *
+     * @return array
+     */
+    public function dadosEventos(): array
+    {
+
+        //pega mes atual
+        $mesAtual = date("m");
+        $mesPassado = $mesAtual - 1;
+        $mesRetrasado = $mesAtual - 2;
+
+        $evento = 1;
+        $teatro = 2;
+        $show = 4;
+
+        $dadosEventos = [
+
+            Event::where('event_type_id', $evento)->count(), // eventos
+            Event::where('event_type_id', $teatro)->count(), // teatro
+            Event::where('event_type_id', $show)->count(), // shows
+            Course::all()->count(), // todos os cursos
+        ];
+
+        //dd($dadosEventos);
+        return $dadosEventos;
     }
 }
