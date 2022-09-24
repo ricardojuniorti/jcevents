@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +32,19 @@ class Event extends Model
         }
     }
 
+    public static function recuperar_top3_eventos(){
+
+            $registro = DB::select('SELECT count(events.id) as qtde,events.title as title 
+                                    FROM events 
+                                    join 
+                                        event_user on(events.id = event_user.event_id)  
+                                    group by 
+                                        events.id 
+                                    order by 
+                                        events.id asc
+                                    limit 3 ');   
+            return $registro;
+    }
 
     public function user() {
         return $this->belongsTo('App\Models\User');

@@ -8,6 +8,7 @@
 
 var data= JSON.parse('<?= $data ?>');
 
+
 // ano atual
 let currentTime = new Date();
 let anoAtual = currentTime.getFullYear();
@@ -103,13 +104,23 @@ function drawChart2() {
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawAnnotations);
 
+
+const eventoParticipanteQtde1 = parseInt(data.dadosParticipantes[0][0].qtde);
+const eventoParticipanteTitulo1 = data.dadosParticipantes[0][0].title;
+
+const eventoParticipanteQtde2 = parseInt(data.dadosParticipantes[0][1].qtde);
+const eventoParticipanteTitulo2 = data.dadosParticipantes[0][1].title;
+
+const eventoParticipanteQtde3 = parseInt(data.dadosParticipantes[0][2].qtde);
+const eventoParticipanteTitulo3 = data.dadosParticipantes[0][2].title;
+
 function drawAnnotations() {
      
   var data = google.visualization.arrayToDataTable([
-    ['elemento', 'top 3', { role: 'style' }],
-    ['Chaves', 8, '#b87333'],            // RGB value
-    ['Arnold Classic', 10, 'silver'],    // English color name
-    ['Girafas Falantes', 19, 'gold'],
+    ['elemento', 'qtde de participantes', { role: 'style' }],
+    [eventoParticipanteTitulo1, eventoParticipanteQtde1, '#b87333'],            // RGB value
+    [eventoParticipanteTitulo2, eventoParticipanteQtde2, 'silver'],    // English color name
+    [eventoParticipanteTitulo3, eventoParticipanteQtde3, 'gold'],
 
   ]);
 
@@ -144,12 +155,18 @@ function drawAnnotations() {
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawStacked);
 
+//quantidade total de cadastros 
+const visitanteMesAtual =  parseInt(data.dadosVisitantes[0])
+const visitanteMesPassado =  parseInt(data.dadosVisitantes[1])
+const visitanteMesRetrasado =  parseInt(data.dadosVisitantes[2])
+const totalVisitantes =  parseInt(data.dadosVisitantes[3])
+
 function drawStacked() {
   var data = google.visualization.arrayToDataTable([
          ['Element', '', { role: 'style' }],
-         [mesanterior2, 8, '#b87333'],            // RGB value
-         [mesanterior, 1, 'blue'],            // English color name
-         [mesAtual, 10, 'red'],
+         [mesanterior2, visitanteMesRetrasado, '#b87333'],            // RGB value
+         [mesanterior, visitanteMesPassado, 'blue'],            // English color name
+         [mesAtual, visitanteMesAtual, 'red'],
   ]);
 
   var options = {
@@ -157,7 +174,7 @@ function drawStacked() {
     chartArea: {width: '80%'},
     isStacked: true,
     hAxis: {
-      title: 'Total de visitas',
+      title: 'Total de visitas: '+totalVisitantes,
       minValue: 0,
     },
     vAxis: {

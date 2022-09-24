@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Event;
 use App\Models\EventCategory;
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Visits;
 
 class ReportController extends Controller
 {
@@ -18,6 +18,8 @@ class ReportController extends Controller
         $data = [
             'dadosUsuarios' => $this->dadosUsuarios(),
             'dadosEventos' => $this->dadosEventos(),
+            'dadosVisitantes' => $this->dadosVisitantes(),
+            'dadosParticipantes' => $this->dadosParticipantes(),
         ];
         //dd($data);
         return view('report.eventTime', ['data' => json_encode($data)]);
@@ -72,5 +74,47 @@ class ReportController extends Controller
 
         //dd($dadosEventos);
         return $dadosEventos;
+    }
+
+    /**
+    * dadosVisitantes
+    *
+    * @return array
+    */
+    public function dadosVisitantes(): array
+    {
+
+        //pega mes atual
+        $mesAtual = date("m");
+        $mesPassado = $mesAtual - 1;
+        $mesRetrasado = $mesAtual - 2;
+
+        $dadosVisitantes = [
+
+            Visits::whereMonth('created_at', $mesAtual)->count(),
+            Visits::whereMonth('created_at', $mesPassado)->count(),
+            Visits::whereMonth('created_at', $mesRetrasado)->count(),
+            Visits::all()->count(), // todas visitas
+        ];
+
+        return $dadosVisitantes;
+    }
+
+    /**
+     * dadosParticipantes
+     *
+     * @return array
+     */
+    public function dadosParticipantes(): array
+    {
+        //$userEvents = Event::recuperar_top3_eventos();
+        //dd($userEvents);
+
+        $dadosParticipantes = [
+            Event::recuperar_top3_eventos()
+        ];
+        //dd($dadosParticipantes);
+        
+        return $dadosParticipantes;
     }
 }
