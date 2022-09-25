@@ -1,6 +1,5 @@
 <!-- Modal  Cadastrar Aula-->
-<?php if(isset($classe)): ?>
-  <div class="modal fade" id="editAula" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<?php if(isset($classe)): ?> 
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -37,6 +36,5 @@
         </form>
       </div>
     </div>
-  </div>
 <?php endif; ?>
 <?php /**PATH E:\laragon\www\TCC\jcevents\resources\views////classe/editClasse.blade.php ENDPATH**/ ?>

@@ -78,7 +78,7 @@ Route::delete('/course/{id}', [CourseController::class, 'deleteCourse'])->middle
 Route::get('/classe/createClasse', [ClasseController::class, 'createClasse'])->middleware('auth');
 Route::post('/classe', [ClasseController::class, 'recordClasse'])->middleware('auth');
 Route::post('/classe/{id}', [ClasseController::class, 'detailsClasse']);
-Route::get('/classe/editClasse', [ClasseController::class, 'editClasse'])->middleware('auth');
+Route::get('/classe/editClasse/{id}', [ClasseController::class, 'editClasse'])->middleware('auth');
 Route::put('/classe/updateClasse/{id}', [ClasseController::class, 'updateClasse'])->middleware('auth');
 Route::delete('/classe/{id}', [ClasseController::class, 'deleteClasse'])->middleware('auth');
 Route::get('/classe/detailsClasse/{id}', [ClasseController::class, 'detailsClasse'])->middleware('auth');

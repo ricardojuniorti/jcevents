@@ -62,10 +62,26 @@ class ClasseController extends Controller
 
     public function editClasse($id) {
 
-        //dd($id);
-        $classe = Classe::Paginate(8);
+        $classe = Classe::findOrFail($id);
         return view('classe.editClasse',['classe' => $classe]);
         
+    }
+
+    public function updateClasse(Request $request) {  // atualiza no banco
+
+
+            $data['title'] = $request->title;
+            $data['link_video'] = $request->link_video;
+            $data['active'] = $request->active;
+            $data['duration'] = $request->duration;
+            $data['updated_at'] = date('Y/m/d H:i');
+            
+            Classe::findOrFail($request->id)->update($data);
+
+            echo json_encode($request);
+            
+            return;
+    
     }
 
     public function createMessage ($classeId, request $request){
