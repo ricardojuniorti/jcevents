@@ -10,6 +10,8 @@ use App\Models\EventCategory;
 use App\Models\Course;
 use App\Models\User;
 use App\Models\Visits;
+use App\Models\DropoutsEvents;
+
 
 class ReportController extends Controller
 {
@@ -20,6 +22,7 @@ class ReportController extends Controller
             'dadosEventos' => $this->dadosEventos(),
             'dadosVisitantes' => $this->dadosVisitantes(),
             'dadosParticipantes' => $this->dadosParticipantes(),
+            'dadosDesistentes' => $this->dadosDesistentes(),
         ];
         //dd($data);
         return view('report.eventTime', ['data' => json_encode($data)]);
@@ -116,5 +119,29 @@ class ReportController extends Controller
         //dd($dadosParticipantes);
         
         return $dadosParticipantes;
+    }
+
+    /**
+    * dadosDesistentes
+    *
+    * @return array
+    */
+    public function dadosDesistentes(): array
+    {
+
+        //pega mes atual
+        $mesAtual = date("m");
+        $mesPassado = $mesAtual - 1;
+        $mesRetrasado = $mesAtual - 2;
+
+        $dadosDesistentes = [
+
+            DropoutsEvents::whereMonth('created_at', $mesAtual)->count(),
+            DropoutsEvents::whereMonth('created_at', $mesPassado)->count(),
+            DropoutsEvents::whereMonth('created_at', $mesRetrasado)->count(),
+            DropoutsEvents::all()->count(),
+        ];
+
+        return $dadosDesistentes;
     }
 }

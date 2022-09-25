@@ -51,13 +51,17 @@ function drawChart() {
 // quantidade de eventos abertos nos ultimos 3 meses ------------------------------------------------>
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChartCurve);
+const desistenteMesAtual =  parseInt(data.dadosDesistentes[0])
+const desistenteMesPassado =  parseInt(data.dadosDesistentes[1])
+const desistenteMesRetrasado =  parseInt(data.dadosDesistentes[2])
+const totalDesistentes =  parseInt(data.dadosDesistentes[3])
 
 function drawChartCurve() {
 var data = google.visualization.arrayToDataTable([
   ['Year', 'Desistencia em eventos'],
-  [mesanterior2,  3],
-  [mesanterior,  1],
-  [mesAtual,  6]
+  [mesanterior2,  desistenteMesRetrasado],
+  [mesanterior,  desistenteMesPassado],
+  [mesAtual,  desistenteMesAtual]
 ]);
 
 var options = {

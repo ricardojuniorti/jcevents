@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\Items;
 use App\Models\EventsItems;
 use App\Models\Visits;
+use App\Models\DropoutsEvents;
+
 use App\Models\EventCategory;
 
 
@@ -322,13 +324,25 @@ class EventController extends Controller
 
     public function leaveEvent($id,Request $request) {
 
-        $id = $request->eventId;
-
+        $idEvent = $request->eventId;
+        $userId = auth()->user()->id;
         $user = auth()->user();
 
-        $user->eventsAsParticipant()->detach($id);
+        if($idEvent != null && $userId != null){
 
-        $event = Event::findOrFail($id);
+            $user->eventsAsParticipant()->detach($idEvent);
+
+            // grava o usuario e o evento na tabela de desistentes do evento
+            //Origin é para saber se ele ta desistindo de um curso ou evento. Evento = E , Curso = C
+            $desistenteEvento = new DropoutsEvents;
+            $desistenteEvento->users_id = $userId;
+            $desistenteEvento->events_id = $idEvent;
+            $desistenteEvento->origin = "E";
+            $desistenteEvento->save();
+
+        }
+ 
+        $event = Event::findOrFail($idEvent);
 
         return redirect('/event/myEvent')->with('msg', 'Você saiu com sucesso do evento: ' . $event->title);
 

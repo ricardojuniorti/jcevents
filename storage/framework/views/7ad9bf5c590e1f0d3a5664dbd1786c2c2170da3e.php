@@ -84,7 +84,7 @@ use Illuminate\Support\Facades\DB;
             <?php if(auth()->user()->user_profile_id == 3): ?>
               <li class="sublinhado"><a href="#">Relatórios</a>
                 <ul class="sub-menu">
-                  <li class="sublinhado"><a href="/report/eventTime">Painel de relatórios</a></li>     
+                  <li class="sublinhado"><a href="/report/eventTime">Estatísticas</a></li>     
                 </ul>
               </li>
               <li class="sublinhado"><a href="#">Administração</a>
@@ -167,7 +167,7 @@ use Illuminate\Support\Facades\DB;
             <?php if(auth()->user()->user_profile_id ==3): ?>
               <li class="sublinhado"><a href="#"><b>Relatórios</b></a>
                 <ul class="sub-menu">
-                  <li class="sublinhado"><a href="/report/eventTime">Painel de relatórios</a></li>
+                  <li class="sublinhado"><a href="/report/eventTime">Estatísticas</a></li>
                 </ul>
               </li>           
               <br>  

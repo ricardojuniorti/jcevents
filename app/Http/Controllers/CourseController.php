@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Event;
 use App\Models\Classe;
 use App\Models\User;
+use App\Models\DropoutsEvents;
 
 class CourseController extends Controller
 {
@@ -209,13 +210,24 @@ class CourseController extends Controller
 
     public function leaveCourse($id,Request $request) {
 
-        $id = $request->eventId;
-
+        $idEvent = $request->eventId;
+        $userId = auth()->user()->id;
         $user = auth()->user();
 
-        $user->coursesAsParticipant()->detach($id);
+        if($idEvent != null && $userId != null){
 
-        $course = Course::findOrFail($id);
+            $user->coursesAsParticipant()->detach($idEvent);
+
+            // grava o usuario e o evento na tabela de desistentes do evento
+            //Origin é para saber se ele ta desistindo de um curso ou evento. Evento = E , Curso = C
+            $desistenteEvento = new DropoutsEvents;
+            $desistenteEvento->users_id = $userId;
+            $desistenteEvento->events_id = $idEvent;
+            $desistenteEvento->origin = "C";
+            $desistenteEvento->save();
+        }
+
+        $course = Course::findOrFail($idEvent);
 
         return redirect('/mycourses')->with('msg', 'Você saiu com sucesso do curso: ' . $course->title);
 
