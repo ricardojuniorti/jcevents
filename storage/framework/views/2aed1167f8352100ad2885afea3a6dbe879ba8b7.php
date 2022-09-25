@@ -87,7 +87,7 @@ const cadastroMesRetrasado =  parseInt(data.dadosUsuarios[2])
 
 function drawChart2() {
   var data = google.visualization.arrayToDataTable([
-    ['Meses', 'Novos Cadastros'],
+    ['', ''],
     [mesanterior2,  cadastroMesRetrasado],
     [mesanterior,  cadastroMesPassado],
     [mesAtual,  cadastroMesAtual]
@@ -121,7 +121,7 @@ const eventoParticipanteTitulo3 = data.dadosParticipantes[0][2].title;
 function drawAnnotations() {
      
   var data = google.visualization.arrayToDataTable([
-    ['elemento', 'qtde de participantes', { role: 'style' }],
+    ['', '', { role: 'style' }],
     [eventoParticipanteTitulo1, eventoParticipanteQtde1, '#b87333'],            // RGB value
     [eventoParticipanteTitulo2, eventoParticipanteQtde2, 'silver'],    // English color name
     [eventoParticipanteTitulo3, eventoParticipanteQtde3, 'gold'],
