@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Classe;
 use App\Models\User;
 use App\Models\MessageClasses;
+use App\Models\ReadClasses;
 use Illuminate\Http\Request;
 
 class ClasseController extends Controller
@@ -56,8 +57,10 @@ class ClasseController extends Controller
 
         $messageClasses = MessageClasses::buscar_mensagens($id);
 
+        $aulasLidas = ReadClasses::all(); //busca na tabela de aulas lidas ou nao 
+    
         //dd($messageClasses);
-        return view('classe.detailsClasse', ['classe' => $classe,'classes' => $classes,'linkVideoFormatado' => $linkVideoFormatado, 'messageClasses' => $messageClasses]);        
+        return view('classe.detailsClasse', ['classe' => $classe,'classes' => $classes,'linkVideoFormatado' => $linkVideoFormatado, 'messageClasses' => $messageClasses, 'aulasLidas' => $aulasLidas]);        
     }
 
     public function editClasse($id) {
@@ -82,6 +85,36 @@ class ClasseController extends Controller
             
             return;
     
+    }
+
+    public function updateRead(Request $request) {  // atualiza no banco
+
+        if($request->users_id != null && $request->classes_id != null ){
+
+            $data['users_id'] = $request->users_id;
+            $data['classes_id'] = $request->classes_id;
+            $data['reading'] = $request->reading;
+
+            //saber se ja existe esse registro na tabela
+            $retornaLido = ReadClasses::buscar_lido($request->users_id,$request->classes_id);
+            
+            if($retornaLido != null){
+                ReadClasses::atualizarAulaLida($request->users_id,$request->classes_id,$request->reading);    //rever 
+            }
+            else{
+                $gravarLidoOuNao = new ReadClasses;
+                $gravarLidoOuNao->users_id = $request->users_id; 
+                $gravarLidoOuNao->classes_id = $request->classes_id;
+                $gravarLidoOuNao->reading = $request->reading;
+                $gravarLidoOuNao->save();               
+            }
+            
+        }
+
+        echo json_encode($request);
+        
+        return;
+
     }
 
     public function createMessage ($classeId, request $request){

@@ -24,7 +24,6 @@
                   <form action="/classe/deleteMessage/{{$messageClasse->classe_id}}" method="POST">  
                     <input type="hidden" name="classeId" id="classeId" value="{{$messageClasse->classe_id}}">          
                     <p><b>{{$messageClasse->name}} - {{ date('d-m-y H:i', strtotime($messageClasse->data_envio) )   }} 
-                  
                     @csrf 
                     @method('DELETE')
                     @if(auth()->user()->id === $messageClasse->user_id)
@@ -69,10 +68,30 @@
       </div>
       <div id="info-container" class="col-md-6">
         <h1>{{ $classe->title }}</h1>  <br>
-      
-        <input type="checkbox" id="scales" name="scales">
-        <label for="scales">Marcar como lido</label>
-      
+        <form name="formEdit" enctype="multipart/form-data">
+          @foreach($aulasLidas as $aulaLida)
+            @if($aulaLida->users_id == auth()->user()->id && $aulaLida->classes_id == $classe->id)
+              @if($aulaLida->reading == 1)
+                <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como não assistido">
+                <input type="hidden" id="users_id" name="users_id" value="{{auth()->user()->id}}">      
+                <input type="hidden" id="classes_id" name="classes_id" value="{{$classe->id}}">
+                <input type="hidden" id="reading" name="reading" value="0">
+              @else
+                <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como assistido">
+                <input type="hidden" id="users_id" name="users_id" value="{{auth()->user()->id}}">      
+                <input type="hidden" id="classes_id" name="classes_id" value="{{$classe->id}}">
+                <input type="hidden" id="reading" name="reading" value="1">
+              @endif
+            @elseif(!$aulasLidas)
+              <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como assistido">
+              <input type="hidden" id="users_id" name="users_id" value="{{auth()->user()->id}}">      
+              <input type="hidden" id="classes_id" name="classes_id" value="{{$classe->id}}">
+              <input type="hidden" id="reading" name="reading" value="1">
+            @endif
+          @endforeach
+          @csrf 
+          @method('POST')    
+        </form>
         @if(session('msg'))
         <div class="alert alert-success" role="alerta" id="msgItem">{{ session('msg') }}</div>
           <script>
@@ -90,6 +109,19 @@
 
 <script>
 
+$('#buttonSubmit').click(function(){		
+  // o texto do botão é alterado e o atributo title
+  if($('#buttonSubmit').val() == "Marcar como assistido"){
+    $('#buttonSubmit').val("Marcar como não assistido")
+    $('#reading').val("1")
+  }
+  else{
+    $('#buttonSubmit').val("Marcar como assistido")
+    $('#reading').val("0")
+  }
+
+});
+
 $('#exampleModalCenter').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var recipientId = button.data('id');
@@ -98,6 +130,26 @@ $('#exampleModalCenter').on('show.bs.modal', function (event) {
     modal.find('#messageId').val(recipientId);
 })
 
+
+$(function(){
+
+  $('form[name="formEdit"]').submit(function(user){
+
+    user.preventDefault();
+    
+    $.ajax({
+      url: "/classe/updateRead/{{$classe->id}}",
+      type: "POST",
+      data: $(this).serialize(),
+      dataType: 'json',
+      success: function(response){      
+        console.log($('#reading').val());
+      } 
+    });
+
+  });
+
+});
 
 </script>
 

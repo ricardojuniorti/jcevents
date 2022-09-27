@@ -80,6 +80,7 @@ Route::post('/classe', [ClasseController::class, 'recordClasse'])->middleware('a
 Route::post('/classe/{id}', [ClasseController::class, 'detailsClasse']);
 Route::get('/classe/editClasse/{id}', [ClasseController::class, 'editClasse'])->middleware('auth');
 Route::put('/classe/updateClasse/{id}', [ClasseController::class, 'updateClasse'])->middleware('auth');
+Route::post('/classe/updateRead/{id}', [ClasseController::class, 'updateRead'])->middleware('auth');
 Route::delete('/classe/{id}', [ClasseController::class, 'deleteClasse'])->middleware('auth');
 Route::get('/classe/detailsClasse/{id}', [ClasseController::class, 'detailsClasse'])->middleware('auth');
 Route::post('/classe/createMessage/{id}', [ClasseController::class, 'createMessage'])->middleware('auth');

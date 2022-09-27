@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('title', $classe->title); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -21,8 +23,7 @@
                 <?php $__currentLoopData = $messageClasses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $messageClasse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>  
                   <form action="/classe/deleteMessage/<?php echo e($messageClasse->classe_id); ?>" method="POST">  
                     <input type="hidden" name="classeId" id="classeId" value="<?php echo e($messageClasse->classe_id); ?>">          
-                    <p><b><?php echo e($messageClasse->name); ?> - <?php echo e(date('d-m-y H:i:s', strtotime($messageClasse->data_envio) )); ?> 
-                  
+                    <p><b><?php echo e($messageClasse->name); ?> - <?php echo e(date('d-m-y H:i', strtotime($messageClasse->data_envio) )); ?> 
                     <?php echo csrf_field(); ?> 
                     <?php echo method_field('DELETE'); ?>
                     <?php if(auth()->user()->id === $messageClasse->user_id): ?>
@@ -44,12 +45,12 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                <p>Tem certeza excluir o curso ?</p>
+                                <p>Tem certeza excluir esta mensagem ?</p>
                                 <input type="hidden" id="messageId" name="messageId" value="">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                                    <button type="submit"  class="btn btn-primary">Excluir Curso</button>
+                                    <button type="submit"  class="btn btn-primary">Excluir mensagem</button>
                                 </div>
                             </div>
                         </div>
@@ -67,10 +68,30 @@
       </div>
       <div id="info-container" class="col-md-6">
         <h1><?php echo e($classe->title); ?></h1>  <br>
-      
-        <input type="checkbox" id="scales" name="scales">
-        <label for="scales">Marcar como lido</label>
-      
+        <form name="formEdit" enctype="multipart/form-data">
+          <?php $__currentLoopData = $aulasLidas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $aulaLida): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if($aulaLida->users_id == auth()->user()->id && $aulaLida->classes_id == $classe->id): ?>
+              <?php if($aulaLida->reading == 1): ?>
+                <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como não assistido">
+                <input type="hidden" id="users_id" name="users_id" value="<?php echo e(auth()->user()->id); ?>">      
+                <input type="hidden" id="classes_id" name="classes_id" value="<?php echo e($classe->id); ?>">
+                <input type="hidden" id="reading" name="reading" value="0">
+              <?php else: ?>
+                <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como assistido">
+                <input type="hidden" id="users_id" name="users_id" value="<?php echo e(auth()->user()->id); ?>">      
+                <input type="hidden" id="classes_id" name="classes_id" value="<?php echo e($classe->id); ?>">
+                <input type="hidden" id="reading" name="reading" value="1">
+              <?php endif; ?>
+            <?php elseif(!$aulasLidas): ?>
+              <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como assistido">
+              <input type="hidden" id="users_id" name="users_id" value="<?php echo e(auth()->user()->id); ?>">      
+              <input type="hidden" id="classes_id" name="classes_id" value="<?php echo e($classe->id); ?>">
+              <input type="hidden" id="reading" name="reading" value="1">
+            <?php endif; ?>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          <?php echo csrf_field(); ?> 
+          <?php echo method_field('POST'); ?>    
+        </form>
         <?php if(session('msg')): ?>
         <div class="alert alert-success" role="alerta" id="msgItem"><?php echo e(session('msg')); ?></div>
           <script>
@@ -88,6 +109,19 @@
 
 <script>
 
+$('#buttonSubmit').click(function(){		
+  // o texto do botão é alterado e o atributo title
+  if($('#buttonSubmit').val() == "Marcar como assistido"){
+    $('#buttonSubmit').val("Marcar como não assistido")
+    $('#reading').val("1")
+  }
+  else{
+    $('#buttonSubmit').val("Marcar como assistido")
+    $('#reading').val("0")
+  }
+
+});
+
 $('#exampleModalCenter').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var recipientId = button.data('id');
@@ -96,6 +130,26 @@ $('#exampleModalCenter').on('show.bs.modal', function (event) {
     modal.find('#messageId').val(recipientId);
 })
 
+
+$(function(){
+
+  $('form[name="formEdit"]').submit(function(user){
+
+    user.preventDefault();
+    
+    $.ajax({
+      url: "/classe/updateRead/<?php echo e($classe->id); ?>",
+      type: "POST",
+      data: $(this).serialize(),
+      dataType: 'json',
+      success: function(response){      
+        console.log($('#reading').val());
+      } 
+    });
+
+  });
+
+});
 
 </script>
 
