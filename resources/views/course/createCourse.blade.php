@@ -26,7 +26,7 @@
       
         <div class="form-group">
           <label for="title">Detalhes sobre curso:</label>
-          <textarea name="description" id="description" rows="10" class="form-control" placeholder="detalhes..."></textarea>
+          <textarea name="description" id="description" maxlength="300" rows="10" class="form-control" placeholder="detalhes..."></textarea>
         </div>
         <div class="form-group">
           <label for="title">Ativo?</label><tag class="font-red">*</tag>

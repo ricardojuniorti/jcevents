@@ -51,7 +51,7 @@
       
         <div class="form-group">
           <label for="title">Sobre o curso:</label>
-          <textarea name="description" id="description" rows="10" class="form-control" placeholder="O que vai acontecer no curso" required>{{ $course->description }}</textarea>
+          <textarea name="description" id="description" rows="10" maxlength="300" class="form-control" placeholder="O que vai acontecer no curso" required>{{ $course->description }}</textarea>
         </div>
 
         <div class="form-group">

@@ -98,7 +98,7 @@
         </div>
         <div class="form-group">
           <label for="title">Sobre o evento:</label>
-          <textarea name="description" id="description" rows="10" class="form-control" placeholder="O que vai acontecer no evento?" required>{{ $event->description }}</textarea>
+          <textarea name="description" id="description" rows="10" class="form-control" maxlength="300" placeholder="O que vai acontecer no evento?" required>{{ $event->description }}</textarea>
         </div>
         <BR>
         <input type="submit" id="buttonSubmit"  class="btn btn-primary" value="Editar Evento" onClick="recuperarLocalizacao()">

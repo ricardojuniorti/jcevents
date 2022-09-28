@@ -4,71 +4,76 @@
 
 <?php $__env->startSection('content'); ?>
 
-<div id="event-create-container" class="col-md-6 offset-md-3">
-  <div class="shadow-lg p-3 mb-5 bg-white rounded">
-    <div class="alert alert-success messageBox" id="alerta" role="alert"></div>
 
-    <?php if(session('msg')): ?>
-    <div class="alert alert-success" role="alerta" id="msgItem"><?php echo e(session('msg')); ?></div>
+<?php if(auth()->user()->user_profile_id == 1): ?>
+  <script>alert("Voce não tem permissão para acessar esta página");window.location.href = "/";</script>
+<?php else: ?>
+  <div id="event-create-container" class="col-md-6 offset-md-3">
+    <div class="shadow-lg p-3 mb-5 bg-white rounded">
+      <div class="alert alert-success messageBox" id="alerta" role="alert"></div>
+
+      <?php if(session('msg')): ?>
+      <div class="alert alert-success" role="alerta" id="msgItem"><?php echo e(session('msg')); ?></div>
+        <script>
+              setTimeout(function() {
+                $('#msgItem').fadeOut('slow');
+              }, 4000);
+        </script>
+      <?php endif; ?>
+      <?php if(isset($msg)): ?>
+      <div class="alert alert-success" role="alerta" id="msgItem"><?php echo e($msg); ?></div>
       <script>
+            $('html,body').animate({scrollTop: 9999});
             setTimeout(function() {
               $('#msgItem').fadeOut('slow');
             }, 4000);
       </script>
-    <?php endif; ?>
-    <?php if(isset($msg)): ?>
-    <div class="alert alert-success" role="alerta" id="msgItem"><?php echo e($msg); ?></div>
-    <script>
-          $('html,body').animate({scrollTop: 9999});
-          setTimeout(function() {
-            $('#msgItem').fadeOut('slow');
-          }, 4000);
-    </script>
-    <?php endif; ?>
-      <form action="/course/updateCourse/<?php echo e($course->id); ?>" method="POST" enctype="multipart/form-data">
-      <?php echo csrf_field(); ?>
-      <?php echo method_field('PUT'); ?>
-      <div class="shadow-none p-3 mb-5 bg-light rounded"><h1>Editando: <?php echo e($course->title); ?></h1></div>  
+      <?php endif; ?>
+        <form action="/course/updateCourse/<?php echo e($course->id); ?>" method="POST" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
+        <div class="shadow-none p-3 mb-5 bg-light rounded"><h1>Editando: <?php echo e($course->title); ?></h1></div>  
+          <div class="form-group">
+            <label for="image">Imagem do Curso:</label>
+            <input type="file" id="image" name="image" class="from-control-file" onchange="previewImagem()" required>
+            <img src="/img/events/<?php echo e($course->image); ?>" alt="<?php echo e($course->title); ?>" class="img-preview">
+          </div>
+          <button class="btn btn-success" id="alteraImagem">Alterar Imagem</button>
+        </form><BR><BR>
+        <form  name="formEdit" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
+        
         <div class="form-group">
-          <label for="image">Imagem do Curso:</label>
-          <input type="file" id="image" name="image" class="from-control-file" onchange="previewImagem()" required>
-          <img src="/img/events/<?php echo e($course->image); ?>" alt="<?php echo e($course->title); ?>" class="img-preview">
+          <label for="title">Curso:</label><tag class="font-red">*</tag>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Nome do evento" value="<?php echo e($course->title); ?>" required>
         </div>
-        <button class="btn btn-success" id="alteraImagem">Alterar Imagem</button>
-      </form><BR><BR>
-      <form  name="formEdit" enctype="multipart/form-data">
-      <?php echo csrf_field(); ?>
-      <?php echo method_field('PUT'); ?>
       
-      <div class="form-group">
-        <label for="title">Curso:</label><tag class="font-red">*</tag>
-        <input type="text" class="form-control" id="title" name="title" placeholder="Nome do evento" value="<?php echo e($course->title); ?>" required>
-      </div>
-     
-      <div class="form-group">
-        <label for="title">Sobre o curso:</label>
-        <textarea name="description" id="description" rows="10" class="form-control" placeholder="O que vai acontecer no curso" required><?php echo e($course->description); ?></textarea>
-      </div>
+        <div class="form-group">
+          <label for="title">Sobre o curso:</label>
+          <textarea name="description" id="description" rows="10" maxlength="300" class="form-control" placeholder="O que vai acontecer no curso" required><?php echo e($course->description); ?></textarea>
+        </div>
 
-      <div class="form-group">
-        <label for="title">Ativo?</label><tag class="font-red">*</tag>
-        <select name="active" id="active" class="form-control" required>
-          <option value="0">Não</option>
-          <option value="1"<?php echo e($course->active == 1 ? "selected='selected'" : ""); ?>>Sim</option>
-        </select>
-      </div>
+        <div class="form-group">
+          <label for="title">Ativo?</label><tag class="font-red">*</tag>
+          <select name="active" id="active" class="form-control" required>
+            <option value="0">Não</option>
+            <option value="1"<?php echo e($course->active == 1 ? "selected='selected'" : ""); ?>>Sim</option>
+          </select>
+        </div>
 
-      <div class="form-group">
-        <label for="title">Duração:</label><tag class="font-red">*</tag>
-        <input type="text" class="form-control" id="duration" name="duration" placeholder="duracao" value="<?php echo e($course->duration); ?>" required>
-      </div>
+        <div class="form-group">
+          <label for="title">Duração:</label><tag class="font-red">*</tag>
+          <input type="text" class="form-control" id="duration" name="duration" placeholder="duracao" value="<?php echo e($course->duration); ?>" required>
+        </div>
 
-      <BR>
-      <input type="submit" id="buttonSubmit"  class="btn btn-primary" value="Atualizar">
-      <a href="/course/show" id="btn_cancelar" class="btn btn-outline-warning">Cancelar</a>
-    </form>
+        <BR>
+        <input type="submit" id="buttonSubmit"  class="btn btn-primary" value="Atualizar">
+        <a href="/course/show" id="btn_cancelar" class="btn btn-outline-warning">Cancelar</a>
+      </form>
+    </div>
   </div>
-</div>
+<?php endif; ?>
 <script>
   $(function(){
 
