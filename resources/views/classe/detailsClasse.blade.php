@@ -69,26 +69,32 @@
       <div id="info-container" class="col-md-6">
         <h1>{{ $classe->title }}</h1>  <br>
         <form name="formEdit" enctype="multipart/form-data">
+          <?php $lido = 0;?>
           @foreach($aulasLidas as $aulaLida)
             @if($aulaLida->users_id == auth()->user()->id && $aulaLida->classes_id == $classe->id)
+            <?php $lido = 1;?>
               @if($aulaLida->reading == 1)
+                <p class="already-joined-msg" id="msgRead">Status: Assistido</p>
                 <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como não assistido">
                 <input type="hidden" id="users_id" name="users_id" value="{{auth()->user()->id}}">      
                 <input type="hidden" id="classes_id" name="classes_id" value="{{$classe->id}}">
                 <input type="hidden" id="reading" name="reading" value="0">
               @else
+                <p class="already-joined-msg" id="msgRead">Status: Não assistido</p>
                 <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como assistido">
                 <input type="hidden" id="users_id" name="users_id" value="{{auth()->user()->id}}">      
                 <input type="hidden" id="classes_id" name="classes_id" value="{{$classe->id}}">
                 <input type="hidden" id="reading" name="reading" value="1">
               @endif
-            @elseif(!$aulasLidas)
-              <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como assistido">
-              <input type="hidden" id="users_id" name="users_id" value="{{auth()->user()->id}}">      
-              <input type="hidden" id="classes_id" name="classes_id" value="{{$classe->id}}">
-              <input type="hidden" id="reading" name="reading" value="1">
             @endif
           @endforeach
+          <?php if($lido == 0){?>
+          <p class="already-joined-msg" id="msgRead">Status: Não assistido</p>
+          <input type="submit" id="buttonSubmit" name="buttonSubmit"  class="btn btn-primary" value="Marcar como assistido">
+          <input type="hidden" id="users_id" name="users_id" value="{{auth()->user()->id}}">      
+          <input type="hidden" id="classes_id" name="classes_id" value="{{$classe->id}}">
+          <input type="hidden" id="reading" name="reading" value="1">
+          <?php }?>
           @csrf 
           @method('POST')    
         </form>
@@ -113,10 +119,12 @@ $('#buttonSubmit').click(function(){
   // o texto do botão é alterado e o atributo title
   if($('#buttonSubmit').val() == "Marcar como assistido"){
     $('#buttonSubmit').val("Marcar como não assistido")
+    $('#msgRead').text("Status: Assitido")
     $('#reading').val("1")
   }
   else{
     $('#buttonSubmit').val("Marcar como assistido")
+    $('#msgRead').text("Status: Não Assitido")
     $('#reading').val("0")
   }
 
