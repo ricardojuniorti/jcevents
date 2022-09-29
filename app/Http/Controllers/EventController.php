@@ -24,6 +24,7 @@ class EventController extends Controller
         //guarda visitantes
         $visit = new Visits;     
         $visit->ip = $_SERVER['REMOTE_ADDR'];
+        date_default_timezone_set('America/Sao_Paulo');
         $visit->save();
         
         
