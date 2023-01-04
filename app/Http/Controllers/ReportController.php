@@ -129,10 +129,14 @@ class ReportController extends Controller
     public function dadosDesistentes(): array
     {
 
+        
+        $mesAtual = date('m', strtotime('0 months', strtotime(date('Y-m-d'))));
+        $mesPassado = date('m', strtotime('-1 months', strtotime(date('Y-m-d'))));
+        $mesRetrasado = date('m', strtotime('-2 months', strtotime(date('Y-m-d'))));
         //pega mes atual
-        $mesAtual = date("m");
-        $mesPassado = $mesAtual - 1;
-        $mesRetrasado = $mesAtual - 2;
+        //$mesAtual = date("m");
+        //$mesPassado = $mesAtual - 1;
+        //$mesRetrasado = $mesAtual - 2;
 
         $dadosDesistentes = [
 

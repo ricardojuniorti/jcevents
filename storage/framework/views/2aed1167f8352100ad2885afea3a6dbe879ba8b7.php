@@ -15,10 +15,26 @@ let anoAtual = currentTime.getFullYear();
 
 // pega mes atual para montar o trimestre
 const month = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-const d = new Date();
-let mesAtual = month[d.getMonth()];
-let mesanterior = month[d.getMonth()-1];
-let mesanterior2 = month[d.getMonth()-2];
+
+const dataAtual = new Date();
+let mesAtual = month[dataAtual.getMonth()];
+let mesanterior = 0;
+let mesanterior2 = 0;
+
+switch (mesAtual) {
+  case 'Janeiro':
+    mesanterior = month[dataAtual.getMonth()+11];
+    mesanterior2 = month[dataAtual.getMonth()+10];
+    break;
+  case 'Fevereiro':
+    mesanterior = month[dataAtual.getMonth()-1];
+    mesanterior2 = month[dataAtual.getMonth()+11];
+    break;
+  default:
+    mesanterior = month[dataAtual.getMonth()-1];
+    mesanterior2 = month[dataAtual.getMonth()-2];
+}
+
 
 //retorno dos dados para o relatorio
 const totalEvento =  parseInt(data.dadosEventos[0])
